@@ -1,0 +1,8 @@
+buildjob:
+  stage: build
+  tags:
+    - flaskapp
+  script:
+    - docker build -t samfeta/flaskapp:latest .
+    - docker image push samfeta/flaskapp:latest
+    - aws ecs update-service --cluster flaskcluster --service flaskapp-service --force-new-deployment
